@@ -3,14 +3,17 @@
     id="dddddd"
     v-model:openKeys="openKeys"
     v-model:selectedKeys="selectedKeys"
-    :style="{ width: isMenuOpen ? '80px' : '256px' }"
+    :style="{
+      width: isMenuOpen ? '80px' : '256px',
+      backgroundColor: '#F0F2F5',
+    }"
     mode="inline"
     :items="items"
     :inline-collapsed="isMenuOpen"
     @click="handleClick"
   >
   </a-menu>
-  <button @click="toggleMenu">{{ isMenuOpen ? "Open" : "Close" }}</button>
+  <a-button @click="toggleMenu">{{ isMenuOpen ? "Open" : "Close" }}</a-button>
 </template>
 <script setup>
 import { reactive, ref, h } from "vue";
@@ -47,6 +50,10 @@ function getItem(label, key, icon, children, type) {
   };
 }
 const items = reactive([
+  getItem("Tên Loyalty", "sub0", () => h(ApartmentOutlined), []),
+  {
+    type: "divider",
+  },
   getItem("Trang chủ", "sub1", () => h(HomeOutlined)),
   getItem("Thành viên", "sub2", () => h(UsergroupAddOutlined)),
   getItem("Phân hạng thành viên", "sub3", () => h(ApartmentOutlined)),
@@ -79,7 +86,9 @@ const items = reactive([
 
 const handleClick = (e) => {
   console.log("click", e);
-  if (e.key === "sub1") {
+  if (e.key === "sub0") {
+    console.log("close");
+  } else if (e.key === "sub1") {
     router.push("/AddNewProgram");
   } else if (e.key === "sub2") {
     router.push("/HomePage");

@@ -14,6 +14,7 @@ import SideBar from './components/SideBar.vue';
 <style>
 .layout {
   display: flex;
+  background-color: #F5F5F5
 }
 
 .SideBar {
