@@ -74,7 +74,13 @@
             </span>
           </a-button>
 
-          <a-modal width="100%" v-model:open="isShowModal" @ok="handleOk">
+          <a-modal
+            width="800px"
+            height="740px"
+            v-model:open="isShowModal"
+            @ok="handleOk"
+            style="display: flex"
+          >
             <template #title>
               <span style="font-size: 20px; margin-bottom: 8px"
                 >Tạo mã ưu đãi</span
@@ -95,7 +101,137 @@
                 <div></div>
               </div>
             </div>
-            <div></div>
+            <div>
+              <a-form-item
+                style="display: flex; flex-direction: column"
+                :colon="false"
+                :labelAlign="'left'"
+                label="Cách tạo mã"
+                :rules="[
+                  {
+                    required: true,
+                    message: 'Please select code!',
+                  },
+                ]"
+              >
+                <a-radio-group
+                  v-model:value="radioCode"
+                  name="radioGroup"
+                  :change="test(radioCode)"
+                >
+                  <a-radio value="1">Tạo tự động ngẫu nhiên </a-radio>
+                  <a-radio value="2">Tạo tự động theo thứ tự</a-radio>
+                  <a-radio value="3">Tạo thủ công</a-radio>
+                  <a-radio value="4">Nhập từ Excel</a-radio>
+                </a-radio-group>
+              </a-form-item>
+              <div
+                style="
+                  display: flex;
+                  padding: 24px;
+                  background-color: #f5f5f5;
+                  flex-direction: column;
+                "
+              >
+                <a-form-item
+                  style="display: flex; flex-direction: column"
+                  :colon="false"
+                  :labelAlign="'left'"
+                  :rules="[
+                    {
+                      required: true,
+                      message: 'Please select code!',
+                    },
+                  ]"
+                >
+                  <template #label>
+                    <span>
+                      Tiền tố mã
+                      <InfoCircleOutlined />
+                    </span>
+                  </template>
+                  <a-input
+                    v-model:value="formState.codePrefix"
+                    placeholder="Ví dụ: BL12"
+                  />
+                </a-form-item>
+                <a-form-item
+                  style="display: flex; flex-direction: column"
+                  :colon="false"
+                  :labelAlign="'left'"
+                  :rules="[
+                    {
+                      required: true,
+                      message: 'Please select code!',
+                    },
+                  ]"
+                >
+                  <template #label>
+                    <span>
+                      Hậu tố mã
+                      <InfoCircleOutlined />
+                    </span>
+                  </template>
+                  <div
+                    style="
+                      display: flex;
+                      flex: 1;
+                      flex-direction: row;
+                      background-color: white;
+                      padding: 20px 20px 20px 0;
+                    "
+                  >
+                    <div style="display: flex; flex: 1; flex-direction: column">
+                      <a-form-item
+                        style="display: flex; flex-direction: column"
+                        :colon="false"
+                        :labelAlign="'left'"
+                        label="Các kí tự được cho phép"
+                        :rules="[
+                          {
+                            required: true,
+                            message: 'Please select code!',
+                          },
+                        ]"
+                      >
+                        <a-select
+                          v-model:value="valueData"
+                          show-search
+                          style="width: 200px"
+                          :options="options"
+                          :filter-option="filterOption"
+                        >
+                          <template #placeholder>
+                            <p style="font-size: 10px; color: black">
+                              Select a person
+                            </p>
+                          </template>
+                        </a-select>
+                      </a-form-item>
+                    </div>
+                    <div style="display: flex; flex: 1; flex-direction: column">
+                      <a-form-item
+                        style="display: flex; flex-direction: column"
+                        :colon="false"
+                        :labelAlign="'left'"
+                        label="Độ dài"
+                        :rules="[
+                          {
+                            required: true,
+                            message: 'Please select code!',
+                          },
+                        ]"
+                      >
+                        <a-input
+                          v-model:value="formState.codePrefix"
+                          placeholder="Nhập số"
+                        />
+                      </a-form-item>
+                    </div>
+                  </div>
+                </a-form-item>
+              </div>
+            </div>
           </a-modal>
         </a-form-item>
 
@@ -257,11 +393,15 @@
   </div>
 </template>
 <script setup>
-import { PlusOutlined } from "@ant-design/icons-vue";
+import { PlusOutlined, InfoCircleOutlined } from "@ant-design/icons-vue";
 import { ref, reactive } from "vue";
 
-const isShowModal = ref(false);
+const test = (e) => {
+  console.log(e);
+};
 
+const isShowModal = ref(false);
+const radioCode = ref("1");
 const numberr = ref(2);
 const checked = ref(false);
 const showModal = () => {
@@ -278,12 +418,21 @@ const del = () => {
 };
 
 const value = ref(1);
-
+const valueData = ref("");
+const options = ref([
+  { value: "jack", label: "Jack" },
+  { value: "lucy", label: "Lucy" },
+  { value: "tom", label: "Tom" },
+]);
+const filterOption = (input, option) => {
+  return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+};
 const formState = reactive({
   nameProgram: "",
   code: "",
   budget: "",
   time: "",
+  codePrefix: "",
 });
 
 const onFinish = (values) => {
@@ -294,4 +443,7 @@ const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 </script>
-<style scoped></style>
+
+<style scoped>
+
+</style>

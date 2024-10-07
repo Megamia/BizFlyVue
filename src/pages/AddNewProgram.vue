@@ -149,7 +149,23 @@ const steps = [
 :deep(.ant-steps .ant-steps-item-process .ant-steps-item-icon) {
   background-color: #e57099;
   border-color: #e57099;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+:deep(.ant-steps .ant-steps-item-wait .ant-steps-item-icon) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:deep(.ant-steps .ant-steps-item-finish .ant-steps-item-icon) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .unActive {
   padding: 24px;
   font-size: 20px;
