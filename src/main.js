@@ -18,6 +18,7 @@ import {
   Modal,
   Step,
   Select,
+  Flex,
 } from "ant-design-vue";
 import router from "./Router";
 
@@ -40,4 +41,5 @@ createApp(App)
   .use(Modal)
   .use(Step)
   .use(Select)
+  .use(Flex)
   .mount("#app");

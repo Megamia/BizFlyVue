@@ -38,7 +38,7 @@ const toggleMenu = () => {
 };
 
 const router = useRouter();
-const selectedKeys = ref(["1"]);
+const selectedKeys = ref([""]);
 const openKeys = ref(["sub1"]);
 function getItem(label, key, icon, children, type) {
   return {
