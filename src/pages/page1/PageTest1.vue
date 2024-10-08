@@ -294,6 +294,9 @@
                   <div v-if="radioCode === '1'">
                     <GenerateRandomAutomatically />
                   </div>
+                  <div v-else-if="radioCode === '2'">
+                    <GenerateAutomaticallyInOrder />
+                  </div>
                 </div>
               </div>
             </div>
@@ -460,6 +463,7 @@
 <script setup>
 import { PlusOutlined } from "@ant-design/icons-vue";
 import GenerateRandomAutomatically from "./createCode/GenerateRandomAutomatically.vue";
+import GenerateAutomaticallyInOrder from "./createCode/GenerateAutomaticallyInOrder.vue";
 import { ref, reactive } from "vue";
 
 const isActive = ref(1);
