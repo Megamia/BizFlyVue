@@ -297,6 +297,12 @@
                   <div v-else-if="radioCode === '2'">
                     <GenerateAutomaticallyInOrder />
                   </div>
+                  <div v-else-if="radioCode === '3'">
+                    <CreateManually />
+                  </div>
+                  <div v-else-if="radioCode === '4'">
+                    <CreateFromExcel />
+                  </div>
                 </div>
               </div>
             </div>
@@ -464,6 +470,8 @@
 import { PlusOutlined } from "@ant-design/icons-vue";
 import GenerateRandomAutomatically from "./createCode/GenerateRandomAutomatically.vue";
 import GenerateAutomaticallyInOrder from "./createCode/GenerateAutomaticallyInOrder.vue";
+import CreateManually from "./createCode/CreateManually.vue";
+import CreateFromExcel from "./createCode/CreateFromExcel.vue";
 import { ref, reactive } from "vue";
 
 const isActive = ref(1);

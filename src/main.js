@@ -19,6 +19,9 @@ import {
   Step,
   Select,
   Flex,
+  Textarea,
+  Upload,
+  UploadDragger,
 } from "ant-design-vue";
 import router from "./Router";
 
@@ -42,4 +45,7 @@ createApp(App)
   .use(Step)
   .use(Select)
   .use(Flex)
+  .use(Textarea)
+  .use(Upload)
+  .use(UploadDragger)
   .mount("#app");
