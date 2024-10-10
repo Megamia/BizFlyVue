@@ -29,6 +29,7 @@
           <a-upload
             style="display: flex; flex: 1; justify-content: flex-end"
             :file-list="formState.fileList"
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             name="file"
           >
             <a-button

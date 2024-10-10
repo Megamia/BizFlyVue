@@ -329,7 +329,7 @@
         </a-form-item>
 
         <a-form-item
-          style="display: flex; flex-direction: column; padding-bottom: 24px"
+          style="display: flex; flex-direction: column"
           :colon="false"
           :labelAlign="'left'"
           label="Thời gian diễn ra chương trình"
@@ -363,7 +363,7 @@
         >
           <a-radio-group
             style="display: flex; flex-direction: column; gap: 24px"
-            v-model:value="value"
+            v-model:value="codeAlidity"
             name="radioGroup"
           >
             <div style="display: flex; flex-direction: column; gap: 8px">
@@ -371,7 +371,7 @@
                 >Số ngày hiệu lực kể từ khi nhận mã</a-radio
               >
               <div
-                v-if="value === 1"
+                v-if="codeAlidity === 1"
                 style="display: flex; flex-direction: row; margin-left: 24px"
               >
                 <a-button
@@ -420,15 +420,73 @@
                 >Phạm vi thời gian cụ thể</a-radio
               >
               <div
-                v-if="value === 2"
+                v-if="codeAlidity === 2"
                 style="
                   display: flex;
-                  flex-direction: row;
+                  flex-direction: column;
                   margin-left: 24px;
                   font-size: 14px;
+                  gap: 8px;
                 "
               >
-                2
+                <a-range-picker
+                  v-model:value="formState['range-time-picker']"
+                  show-time
+                  format="YYYY-MM-DD HH:mm:ss"
+                  value-format="YYYY-MM-DD HH:mm:ss"
+                />
+                <a-flex vertical style="gap: 8px">
+                  <a-checkbox
+                    :checked="checkbox === 1"
+                    :value="1"
+                    @change="clickChangeCheckbox(1)"
+                  >
+                    Cho phép trừ một số ngày
+                  </a-checkbox>
+                  <a-flex
+                    v-if="checkbox === 1"
+                    style="flex: 1; margin-left: 20px"
+                  >
+                    <a-date-picker
+                      v-model:value="valueDay"
+                      style="width: 100%"
+                    />
+                  </a-flex>
+
+                  <a-checkbox
+                    :checked="checkbox === 2"
+                    :value="2"
+                    @change="clickChangeCheckbox(2)"
+                  >
+                    Cho phép lặp lại một số ngày hàng tháng
+                  </a-checkbox>
+                  <a-flex
+                    v-if="checkbox === 2"
+                    style="flex: 1; margin-left: 20px"
+                  >
+                    <a-date-picker v-model="valueDay" style="width: 100%" />
+                  </a-flex>
+
+                  <a-checkbox
+                    :checked="checkbox === 3"
+                    :value="3"
+                    @change="clickChangeCheckbox(3)"
+                  >
+                    Cho phép lặp lại một số thứ hàng tuần
+                  </a-checkbox>
+                  <a-flex
+                    v-if="checkbox === 3"
+                    style="flex: 1; margin-left: 20px"
+                  >
+                    <a-select
+                      v-model="valueSelect"
+                      mode="tags"
+                      style="width: 100%"
+                      placeholder="Tags Mode"
+                      :options="daysOfWeek"
+                    ></a-select>
+                  </a-flex>
+                </a-flex>
               </div>
             </div>
           </a-radio-group>
@@ -442,6 +500,29 @@
         >
           <a-switch v-model:checked="checked" />
         </a-form-item>
+        <a-flex v-if="checked" style="gap:60px; background-color: #F5F5F5;padding:24px 0 0 24px">
+          <a-flex style="gap:8px">
+            <a-form-item
+              label="Khung giờ 1"
+              name="budget"
+              style="display: flex; flex-direction: row"
+            >
+              <a-range-picker
+                v-model:value="formState['range-time-picker']"
+                show-time
+                format="YYYY-MM-DD HH:mm:ss"
+                value-format="YYYY-MM-DD HH:mm:ss"
+              />
+            </a-form-item>
+            <div style="padding-top: 5px">
+              <DeleteOutlined />
+            </div>
+          </a-flex>
+          <a-flex style="flex: 1;padding-top: 5px;color:#E57099;gap:8px">
+            <PlusCircleOutlined style="padding-top: 5px;"/>
+            Thêm khung giờ
+          </a-flex>
+        </a-flex>
 
         <div
           style="
@@ -466,19 +547,46 @@
     </div>
   </div>
 </template>
+
 <script setup>
-import { PlusOutlined } from "@ant-design/icons-vue";
+import { PlusOutlined, DeleteOutlined,PlusCircleOutlined } from "@ant-design/icons-vue";
 import GenerateRandomAutomatically from "./createCode/GenerateRandomAutomatically.vue";
 import GenerateAutomaticallyInOrder from "./createCode/GenerateAutomaticallyInOrder.vue";
 import CreateManually from "./createCode/CreateManually.vue";
 import CreateFromExcel from "./createCode/CreateFromExcel.vue";
 import { ref, reactive } from "vue";
 
+const daysOfWeek = [
+  { label: "Monday", value: "1" },
+  { label: "Tuesday", value: "2" },
+  { label: "Wednesday", value: "3" },
+  { label: "Thursday", value: "4" },
+  { label: "Friday", value: "5" },
+  { label: "Saturday", value: "6" },
+  { label: "Sunday", value: "7" },
+];
+const formState = reactive({
+  nameProgram: "",
+  code: "",
+  budget: "",
+  time: "",
+  "range-time-picker": [],
+});
+
+const codeAlidity = ref(1);
+
+const valueSelect = ref([]);
+const checkbox = ref(1);
+const valueDay = ref("");
+const clickChangeCheckbox = (values) => {
+  checkbox.value = values;
+};
 const isActive = ref(1);
 const active = (a) => {
   isActive.value = a;
 };
-const isShowModal = ref(true);
+
+const isShowModal = ref(false);
 const radioCode = ref("1");
 const numberr = ref(2);
 const checked = ref(false);
@@ -500,20 +608,6 @@ const add = () => {
 const del = () => {
   numberr.value--;
 };
-
-const value = ref(1);
-
-const formState = reactive({
-  nameProgram: "",
-  code: "",
-  budget: "",
-  time: "",
-  codePrefix: "",
-  codeSuffix: "",
-  quantityCode: "",
-  maxUsePerCode: "",
-  maxUsePerDay: "",
-});
 
 const onFinish = (values) => {
   console.log("Success:", values);
