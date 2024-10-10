@@ -500,27 +500,46 @@
         >
           <a-switch v-model:checked="checked" />
         </a-form-item>
-        <a-flex v-if="checked" style="gap:60px; background-color: #F5F5F5;padding:24px 0 0 24px">
-          <a-flex style="gap:8px">
-            <a-form-item
-              label="Khung giờ 1"
-              name="budget"
-              style="display: flex; flex-direction: row"
+        <a-flex
+          v-if="checked"
+          style=" background-color: #f5f5f5; padding: 24px 0 0 24px"
+        >
+          <a-flex direction="column" style="gap: 60px">
+            <div
+              v-for="(range, index) in timeRanges"
+              :key="index"
+              style="display: flex; gap: 8px"
             >
-              <a-range-picker
-                v-model:value="formState['range-time-picker']"
-                show-time
-                format="YYYY-MM-DD HH:mm:ss"
-                value-format="YYYY-MM-DD HH:mm:ss"
-              />
-            </a-form-item>
-            <div style="padding-top: 5px">
-              <DeleteOutlined />
+              <a-form-item
+                :label="'Khung giờ ' + (index + 1)"
+                name="budget"
+                style="display: flex; flex-direction: row"
+              >
+                <a-range-picker
+                  v-model:value="timeRanges[index]"
+                  show-time
+                  format="YYYY-MM-DD HH:mm:ss"
+                  value-format="YYYY-MM-DD HH:mm:ss"
+                />
+              </a-form-item>
+              <div style="padding-top: 5px">
+                <DeleteOutlined @click="removeTimeRange(index)" />
+              </div>
             </div>
-          </a-flex>
-          <a-flex style="flex: 1;padding-top: 5px;color:#E57099;gap:8px">
-            <PlusCircleOutlined style="padding-top: 5px;"/>
-            Thêm khung giờ
+
+            <div
+              style="
+                display: flex;
+                flex: 1;
+                padding-top: 5px;
+                color: #e57099;
+                gap: 8px;
+              "
+              @click="addNew"
+            >
+              <PlusCircleOutlined style="padding-top: 5px" />
+              Thêm khung giờ
+            </div>
           </a-flex>
         </a-flex>
 
@@ -549,7 +568,11 @@
 </template>
 
 <script setup>
-import { PlusOutlined, DeleteOutlined,PlusCircleOutlined } from "@ant-design/icons-vue";
+import {
+  PlusOutlined,
+  DeleteOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons-vue";
 import GenerateRandomAutomatically from "./createCode/GenerateRandomAutomatically.vue";
 import GenerateAutomaticallyInOrder from "./createCode/GenerateAutomaticallyInOrder.vue";
 import CreateManually from "./createCode/CreateManually.vue";
@@ -585,6 +608,7 @@ const isActive = ref(1);
 const active = (a) => {
   isActive.value = a;
 };
+const timeRanges = ref([[]]);
 
 const isShowModal = ref(false);
 const radioCode = ref("1");
@@ -615,6 +639,15 @@ const onFinish = (values) => {
 
 const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
+};
+
+const addNew = () => {
+  console.log("Add");
+  timeRanges.value.push([]);
+};
+
+const removeTimeRange = (index) => {
+  timeRanges.value.splice(index, 1);
 };
 </script>
 
