@@ -54,12 +54,25 @@
                 style="width: 120px"
                 @change="handleChange"
               >
-                <a-select-option value="money">Theo số tiền</a-select-option>
+                <a-select-option value="money" >Theo số tiền</a-select-option>
                 <a-select-option value="percent"
                   >Theo phần trăm</a-select-option
                 >
               </a-select>
-              <a-input placeholder="Nhập giá trị">
+              <a-input
+                placeholder="Nhập giá trị"
+                :value="money"
+                v-if="value2 === money"
+              >
+                <template #suffix>
+                  <PlusOutlined style="color: #00000040" />
+                </template>
+              </a-input>
+              <a-input
+                placeholder="Nhập giá trị"
+                :value="percent"
+                v-if="value2 === percent"
+              >
                 <template #suffix>
                   <PercentageOutlined style="color: #00000040" />
                 </template>
@@ -76,8 +89,12 @@ import {
   CopyOutlined,
   DeleteOutlined,
   PercentageOutlined,
+  PlusOutlined,
 } from "@ant-design/icons-vue";
 import { ref } from "vue";
+
+const money = ref("100.000đ");
+const percent = ref("");
 
 const value1 = ref("Lucy");
 const value2 = ref("money");
