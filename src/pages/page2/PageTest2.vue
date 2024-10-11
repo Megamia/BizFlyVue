@@ -34,23 +34,61 @@
             <DeleteOutlined @click="del" />
           </a-flex>
         </a-flex>
-        <a-flex style="padding:16px">
-        <span>
-          Loại giảm giá | Mức giảm
-        </span>
+        <a-flex vertical style="padding: 16px; gap: 20px">
+          <span> Loại giảm giá | Mức giảm </span>
+          <a-flex style="background-color: #f5f5f5; padding: 16px; gap: 16px">
+            <a-select
+              ref="select"
+              v-model:value="value1"
+              style="width: 120px"
+              @change="handleChange"
+            >
+              <a-select-option value="jack">Jack</a-select-option>
+              <a-select-option value="lucy">Lucy</a-select-option>
+              <a-select-option value="Yiminghe">yiminghe</a-select-option>
+            </a-select>
+            <a-flex>
+              <a-select
+                ref="select"
+                v-model:value="value2"
+                style="width: 120px"
+                @change="handleChange"
+              >
+                <a-select-option value="money">Theo số tiền</a-select-option>
+                <a-select-option value="percent"
+                  >Theo phần trăm</a-select-option
+                >
+              </a-select>
+              <a-input placeholder="Nhập giá trị">
+                <template #suffix>
+                  <PercentageOutlined style="color: #00000040" />
+                </template>
+              </a-input>
+            </a-flex>
+          </a-flex>
         </a-flex>
       </div>
     </a-flex>
   </a-flex>
 </template>
 <script setup>
-import { CopyOutlined, DeleteOutlined } from "@ant-design/icons-vue";
+import {
+  CopyOutlined,
+  DeleteOutlined,
+  PercentageOutlined,
+} from "@ant-design/icons-vue";
+import { ref } from "vue";
 
+const value1 = ref("Lucy");
+const value2 = ref("money");
 const copy = () => {
   console.log("Copy");
 };
 const del = () => {
   console.log("Delete");
+};
+const handleChange = (values) => {
+  console.log(`Select ${values}`);
 };
 </script>
 
