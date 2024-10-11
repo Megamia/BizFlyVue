@@ -500,47 +500,51 @@
         >
           <a-switch v-model:checked="checked" />
         </a-form-item>
-        <a-flex
-          v-if="checked"
-          style=" background-color: #f5f5f5; padding: 24px 0 0 24px"
-        >
-          <a-flex direction="column" style="gap: 60px">
+        <a-flex v-if="checked" style="background-color: #f5f5f5; padding: 24px">
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              grid-column-gap: 80px;
+              grid-row-gap: 20px;
+              flex: 1;
+            "
+          >
             <div
               v-for="(range, index) in timeRanges"
               :key="index"
-              style="display: flex; gap: 8px"
+              style="display: flex; flex: 1; gap: 8px; padding-right: 20px"
             >
-              <a-form-item
-                :label="'Khung giờ ' + (index + 1)"
-                name="budget"
-                style="display: flex; flex-direction: row"
+              <div
+                style="
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  gap: 8px;
+                "
               >
+                Khung giờ {{ index + 1 }}:
                 <a-range-picker
                   v-model:value="timeRanges[index]"
                   show-time
                   format="YYYY-MM-DD HH:mm:ss"
                   value-format="YYYY-MM-DD HH:mm:ss"
+                  style="flex: 1"
                 />
-              </a-form-item>
+              </div>
               <div style="padding-top: 5px">
                 <DeleteOutlined @click="removeTimeRange(index)" />
               </div>
             </div>
 
             <div
-              style="
-                display: flex;
-                flex: 1;
-                padding-top: 5px;
-                color: #e57099;
-                gap: 8px;
-              "
+              style="display: flex; padding-top: 5px; color: #e57099; gap: 8px"
               @click="addNew"
             >
               <PlusCircleOutlined style="padding-top: 5px" />
               Thêm khung giờ
             </div>
-          </a-flex>
+          </div>
         </a-flex>
 
         <div
