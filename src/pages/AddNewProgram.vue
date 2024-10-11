@@ -36,7 +36,7 @@
           <a-step class="test">
             <template #description>
               <div style="display: flex; flex: 1" v-if="current === 0">
-                <component :is="PageTest1" />
+                <component :is="PageTest1" @next="next"/>
               </div>
               <div v-else class="unActive">Thông tin cơ bản</div>
             </template>
@@ -97,7 +97,7 @@ import { ref } from "vue";
 import { message } from "ant-design-vue";
 import PageTest1 from "./page1/PageTest1.vue";
 import PageTest3 from "./PageTest3.vue";
-import PageTest2 from "./PageTest2.vue";
+import PageTest2 from "./page2/PageTest2.vue";
 
 const current = ref(0);
 const next = () => {

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "@/pages/HomePage.vue";
 import AddNewProgram from "./pages/AddNewProgram.vue";
 import PageTest1 from "./pages/page1/PageTest1.vue";
-import PageTest2 from "./pages/PageTest2.vue";
+import PageTest2 from "./pages/page2/PageTest2.vue";
 import PageTest3 from "./pages/PageTest3.vue";
 
 const router = createRouter({

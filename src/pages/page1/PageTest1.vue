@@ -582,6 +582,9 @@ import GenerateAutomaticallyInOrder from "./createCode/GenerateAutomaticallyInOr
 import CreateManually from "./createCode/CreateManually.vue";
 import CreateFromExcel from "./createCode/CreateFromExcel.vue";
 import { ref, reactive } from "vue";
+import { defineEmits } from "vue";
+
+const emit = defineEmits(["next"]);
 
 const daysOfWeek = [
   { label: "Monday", value: "1" },
@@ -639,6 +642,11 @@ const del = () => {
 
 const onFinish = (values) => {
   console.log("Success:", values);
+  if (confirm("Lưu và tiếp tục?")) {
+    emit("next");
+  } else {
+    console.log("Faile");
+  }
 };
 
 const onFinishFailed = (errorInfo) => {
