@@ -1,19 +1,21 @@
 <template>
-  <a-menu
-    id="dddddd"
-    v-model:openKeys="openKeys"
-    v-model:selectedKeys="selectedKeys"
-    :style="{
-      width: isMenuOpen ? '80px' : '256px',
-      backgroundColor: '#F0F2F5',
-    }"
-    mode="inline"
-    :items="items"
-    :inline-collapsed="isMenuOpen"
-    @click="handleClick"
-  >
-  </a-menu>
-  <a-button @click="toggleMenu">{{ isMenuOpen ? "Open" : "Close" }}</a-button>
+  <a-flex horizon>
+    <a-menu
+      id="dddddd"
+      v-model:openKeys="openKeys"
+      v-model:selectedKeys="selectedKeys"
+      :style="{
+        width: isMenuOpen ? '80px' : '256px',
+        backgroundColor: '#F0F2F5',
+      }"
+      mode="inline"
+      :items="items"
+      :inline-collapsed="isMenuOpen"
+      @click="handleClick"
+    >
+    </a-menu>
+    <a-button @click="toggleMenu">{{ isMenuOpen ? "Open" : "Close" }}</a-button>
+  </a-flex>
 </template>
 <script setup>
 import { reactive, ref, h } from "vue";
@@ -39,7 +41,7 @@ const toggleMenu = () => {
 
 const router = useRouter();
 const selectedKeys = ref([""]);
-const openKeys = ref(["sub1"]);
+const openKeys = ref(["main"]);
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -65,7 +67,7 @@ const items = reactive([
     getItem("Điều chỉnh hạng", "2"),
   ]),
   getItem("Tích điểm", "sub5", () => h(DollarOutlined), [
-    getItem("Chương trình tích điểm", "3"),
+    getItem("Chương trình tích điểm", "main"),
     getItem("Giao dịch tích điểm", "4"),
   ]),
   getItem("Công cụ khuyến mãi", "sub6", () => h(GiftOutlined), [
@@ -88,7 +90,7 @@ const handleClick = (e) => {
   console.log("click", e);
   if (e.key === "sub0") {
     console.log("close");
-  } else if (e.key === "sub1") {
+  } else if (e.key === "main") {
     router.push("/AddNewProgram");
   } else if (e.key === "sub2") {
     router.push("/HomePage");
@@ -97,3 +99,5 @@ const handleClick = (e) => {
   }
 };
 </script>
+
+<style scoped></style>

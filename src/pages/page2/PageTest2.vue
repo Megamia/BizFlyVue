@@ -6,8 +6,14 @@
     <span style="font-size: 20px; line-height: 28px; font-weight: 700"
       >Thiết lập ưu đãi</span
     >
-    <a-flex style="background-color: #f5f5f5; padding: 16px; gap: 16px">
+    <a-flex
+      vertical
+      style="background-color: #f5f5f5; padding: 16px; gap: 16px"
+    >
+      <span> Khách hàng sẽ nhận được ưu đãi khi thõa mãn điều kiện sau: </span>
       <div
+        v-for="(concessionary, index) in concessionaryData"
+        :key="index"
         style="
           display: flex;
           flex-direction: column;
@@ -20,7 +26,9 @@
         <a-flex
           style="flex: 1; border-bottom: 1px solid #d9d9d9; padding: 16px"
         >
-          Ưu đãi 1
+          <span style="font-size: 14px; font-weight: bold">
+            Ưu đãi {{ index }}
+          </span>
           <a-flex
             style="
               align-items: center;
@@ -31,17 +39,19 @@
             "
           >
             <CopyOutlined @click="copy" />
-            <DeleteOutlined @click="del" />
+            <DeleteOutlined @click="del(index)" />
           </a-flex>
         </a-flex>
         <a-flex vertical style="padding: 16px; gap: 20px">
           <a-flex vertical style="gap: 12px">
-            <span> Loại giảm giá | Mức giảm </span>
+            <span style="font-size: 14px; line-height: 22px; font-weight: bold">
+              Loại giảm giá | Mức giảm
+            </span>
             <a-flex
               vertical
               style="background-color: #f5f5f5; padding: 16px; gap: 16px"
             >
-              <a-flex horizon>
+              <a-flex horizon gap="16">
                 <a-select
                   ref="select"
                   v-model:value="value1"
@@ -55,11 +65,11 @@
                   >
                   <a-select-option value="gift">Quà tặng</a-select-option>
                 </a-select>
-                <a-flex style="flex: 1">
+                <a-flex style="flex: 1" v-if="value1 === 'order'">
                   <a-select
                     ref="select"
                     v-model:value="value2"
-                    style="width: 120px"
+                    style="width: 180px"
                     class="a"
                   >
                     <a-select-option value="money"
@@ -89,6 +99,31 @@
                     </template>
                   </a-input>
                 </a-flex>
+                <a-flex
+                  v-else-if="value1 === 'gift'"
+                  gap="26"
+                  style="align-items: center; flex: 1"
+                >
+                  <span style="font-size: 14px; line-height: 22px"
+                    >Tặng 1 trong các quà sau đây khi thỏa mãn điều kiện ưu đãi
+                  </span>
+                  <a-select
+                    ref="select"
+                    v-model:value="value3"
+                    style="width: 180px"
+                    class="a"
+                  >
+                    <a-select-option value="1" @click="showmodal('Bizshop')"
+                      >Từ Bizshop</a-select-option
+                    >
+                    <a-select-option value="2" @click="showmodal('Hệ thống')"
+                      >Từ hệ thống</a-select-option
+                    >
+                    <a-select-option value="3" @click="showmodal('Excel')"
+                      >Từ Excel</a-select-option
+                    >
+                  </a-select>
+                </a-flex>
               </a-flex>
               <a-flex vertical style="gap: 8px">
                 <span> Mức giảm tối đa </span>
@@ -98,10 +133,11 @@
                     <a-radio :value="2">Có giới hạn</a-radio>
                   </a-radio-group>
                   <a-input
+                    type="number"
                     placeholder="Nhập số tiền"
                     v-if="sale === 2"
                     :value="limited"
-                    style="width: 220px"
+                    style="width: 180px"
                   >
                     <template #suffix>
                       <PlusOutlined style="color: #00000040" />
@@ -112,8 +148,10 @@
             </a-flex>
           </a-flex>
           <a-flex vertical style="gap: 12px">
-            <span> Nhóm sản phẩm và điều kiện áp dụng </span>
-            <a-flex
+            <span style="font-size: 14px; line-height: 22px; font-weight: bold">
+              Nhóm sản phẩm và điều kiện áp dụng
+            </span>
+            <!-- <a-flex
               vertical
               style="
                 background-color: #f5f5f5;
@@ -180,16 +218,32 @@
                       :placeholder="['Start Time', 'End Time']"
                     />
                   </a-flex>
-                  <div style="color: #e57099" @click="test">
-                    <PlusOutlined />
-                    Thêm mới
-                  </div>
+                 
                 </a-flex>
               </a-flex>
+            </a-flex> -->
+            <a-flex>
+              <div style="color: #e57099">
+                <PlusOutlined />
+                Thêm mới
+              </div>
             </a-flex>
           </a-flex>
         </a-flex>
       </div>
+      <a-button
+        style="
+          width: 135px;
+          color: #e57099;
+          border-radius: 0;
+          border: 1px solid #e57099;
+        "
+        @click="test"
+      >
+        <PlusCircleOutlined />
+        thêm mới
+      </a-button>
+      <ModalBizshop v-if="value3 === '1'" />
     </a-flex>
   </a-flex>
 </template>
@@ -199,31 +253,52 @@ import {
   DeleteOutlined,
   PercentageOutlined,
   PlusOutlined,
+  PlusCircleOutlined,
 } from "@ant-design/icons-vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import ModalBizshop from "./modal/ModalBizshop.vue";
 
 const money = ref("100.000đ");
 const percent = ref("");
-const editableStr = ref("abc");
+// const editableStr = ref("abc");
 const limited = ref("");
 const sale = ref(1);
 const value1 = ref("order");
 const value2 = ref("money");
+const value3 = ref("Thêm quà tặng");
 
-const condition1 = ref("valueOrder");
-const condition2 = ref("time");
+const concessionaryData = ref([]);
+// const condition1 = ref("valueOrder");
+// const condition2 = ref("time");
 const copy = () => {
   console.log("Copy");
 };
-const del = () => {
+const del = (index) => {
   console.log("Delete");
+  concessionaryData.value.splice(index, 1);
+};
+
+// const changevalue = (values) => {
+//   value1.value = values;
+//   console.log(values);
+// };
+
+const showmodal = (values) => {
+  console.log(values);
+  console.log(value3.value);
 };
 
 const test = () => {
   console.log("Add");
+  concessionaryData.value.push([]);
 };
+
+const checkNum = () => {
+  if (concessionaryData.value.length === 0) {
+    concessionaryData.value.push([]);
+  }
+};
+onMounted(() => checkNum());
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -1,28 +1,33 @@
 <template>
   <div class="layout">
-    <SideBar /> 
+    <div style="position: fixed">
+      <SideBar />
+    </div>
     <div class="content">
-      <router-view /> 
+      <router-view />
     </div>
   </div>
 </template>
 
 <script setup>
-import SideBar from './components/SideBar.vue';
+import SideBar from "./components/SideBar.vue";
 </script>
 
 <style>
 .layout {
   display: flex;
-  background-color: #F5F5F5
+  flex-direction: row;
+  background-color: #f5f5f5;
 }
 
 .SideBar {
-  width: 250px; /* Độ rộng của SideBar */
+  width: 250px;
 }
 
 .content {
-  flex-grow: 1; /* Phần nội dung sẽ chiếm toàn bộ không gian còn lại */
+  flex-grow: 1;
   padding: 20px;
+  margin-left: 250px;
+  
 }
 </style>

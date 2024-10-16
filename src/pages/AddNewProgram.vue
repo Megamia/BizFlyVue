@@ -8,6 +8,7 @@
       padding-block: 24px;
       padding-inline: 124px;
       gap: 24px;
+      width: 976px;
     "
   >
     <div style="display: flex; flex-direction: column; gap: 2px">
@@ -36,7 +37,7 @@
           <a-step class="test">
             <template #description>
               <div style="display: flex; flex: 1" v-if="current === 0">
-                <component :is="PageTest1" @next="next"/>
+                <component :is="PageTest1" @next="next" />
               </div>
               <div v-else class="unActive">Thông tin cơ bản</div>
             </template>
