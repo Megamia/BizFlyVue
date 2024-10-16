@@ -1,5 +1,5 @@
 <template>
-    <a-modal v-model:open="open" @ok="handleOk" width="720">
+    <a-modal v-model:open="open" @ok="handleOk" width="683px">
       <template #title> Chọn sản phẩm từ Bizshop </template>
       <a-flex
         vertical
@@ -32,8 +32,8 @@
 import { ref, onMounted } from "vue";
 
 const open = ref(true);
-const value1 = ref("jack");
-const value2 = ref("jack");
+const value1 = ref("Tất cả danh mục");
+const value2 = ref("Tất cả thương hiệu");
 const value3 = ref("");
 const show = () => {
   console.log("Show modal");
