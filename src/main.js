@@ -22,7 +22,8 @@ import {
   Textarea,
   Upload,
   UploadDragger,
-  Typography
+  Typography,
+  Table
 } from "ant-design-vue";
 import router from "./Router";
 
@@ -50,4 +51,5 @@ createApp(App)
   .use(Upload)
   .use(UploadDragger)
   .use(Typography)
+  .use(Table)
   .mount("#app");

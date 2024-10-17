@@ -243,7 +243,7 @@
         <PlusCircleOutlined />
         thêm mới
       </a-button>
-      <ModalBizshop v-if="value3 === '1'" />
+      <ModalBizshop v-if="value3 === '1' && isShowModal" @cancel="Cancel" />
     </a-flex>
   </a-flex>
 </template>
@@ -260,6 +260,7 @@ import ModalBizshop from "./modal/ModalBizshop.vue";
 
 const money = ref("100.000đ");
 const percent = ref("");
+const isShowModal = ref(false);
 // const editableStr = ref("abc");
 const limited = ref("");
 const sale = ref(1);
@@ -284,8 +285,13 @@ const del = (index) => {
 // };
 
 const showmodal = (values) => {
+  isShowModal.value = !isShowModal.value;
+
   console.log(values);
   console.log(value3.value);
+};
+const Cancel = () => {
+  isShowModal.value = !isShowModal.value;
 };
 
 const test = () => {
