@@ -113,13 +113,13 @@
                     style="width: 180px"
                     class="a"
                   >
-                    <a-select-option value="1" @click="showmodal('Bizshop')"
+                    <a-select-option value="1" @click="showmodal()"
                       >Từ Bizshop</a-select-option
                     >
-                    <a-select-option value="2" @click="showmodal('Hệ thống')"
+                    <a-select-option value="2" @click="showmodal()"
                       >Từ hệ thống</a-select-option
                     >
-                    <a-select-option value="3" @click="showmodal('Excel')"
+                    <a-select-option value="3" @click="showmodal()"
                       >Từ Excel</a-select-option
                     >
                   </a-select>
@@ -244,6 +244,8 @@
         thêm mới
       </a-button>
       <ModalBizshop v-if="value3 === '1' && isShowModal" @cancel="Cancel" />
+      <ModalSystem v-if="value3 === '2' && isShowModal" @cancel="Cancel" />
+      <ModalExcel v-if="value3 === '3' && isShowModal" @cancel="Cancel" />
     </a-flex>
   </a-flex>
 </template>
@@ -257,6 +259,8 @@ import {
 } from "@ant-design/icons-vue";
 import { ref, onMounted } from "vue";
 import ModalBizshop from "./modal/ModalBizshop.vue";
+import ModalSystem from "./modal/ModalSystem.vue";
+import ModalExcel from "./modal/ModalExcel.vue";
 
 const money = ref("100.000đ");
 const percent = ref("");
@@ -284,14 +288,11 @@ const del = (index) => {
 //   console.log(values);
 // };
 
-const showmodal = (values) => {
-  isShowModal.value = !isShowModal.value;
-
-  console.log(values);
-  console.log(value3.value);
+const showmodal = () => {
+  isShowModal.value = true;
 };
 const Cancel = () => {
-  isShowModal.value = !isShowModal.value;
+  isShowModal.value = false;
 };
 
 const test = () => {

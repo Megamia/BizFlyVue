@@ -23,7 +23,7 @@ import {
   Upload,
   UploadDragger,
   Typography,
-  Table
+  Table,
 } from "ant-design-vue";
 import router from "./Router";
 

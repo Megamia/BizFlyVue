@@ -1,6 +1,6 @@
 <template>
   <a-modal v-model:open="open" width="720px" @cancel="cancel">
-    <template #title> Chọn sản phẩm từ Bizshop </template>
+    <template #title> Chọn sản phẩm từ hệ thống </template>
     <template #footer>
       <a-flex
         gap="16"
@@ -9,7 +9,10 @@
         <span> {{ numberProductSelected }} sản phẩm đã được chọn </span>
         <a-flex>
           <a-button @click="cancel">Hủy</a-button>
-          <a-button style="background-color: #e57099;color:white" @click="handleOk">
+          <a-button
+            style="background-color: #e57099; color: white"
+            @click="handleOk"
+          >
             Áp dụng
           </a-button>
         </a-flex>
@@ -37,6 +40,69 @@
           style="width: 280px"
         />
         <!-- @search="onSearch" -->
+      </a-flex>
+      <a-flex style="justify-content: space-between; flex: 1">
+        <a-dropdown>
+          <template #overlay>
+            <a-menu @click="handleMenuClick">
+              <a-flex vertical gap="12" style="padding: 20px; border-radius: 0">
+                <span style="font-size: 16px; font-weight: bold">Bộ lọc</span>
+                <a-flex gap="16" style="align-items: center">
+                  <span style="font-size: 14px"> Điều kiện </span>
+                  <a-flex gap="16">
+                    <a-select
+                      ref="select"
+                      v-model:value="value1"
+                      style="width: 180px"
+                    >
+                      <!-- @change="handleChange" -->
+                      <a-select-option value="jack">Jack</a-select-option>
+                      <a-select-option value="lucy">Lucy</a-select-option>
+                    </a-select>
+                    <a-select
+                      ref="select"
+                      v-model:value="value2"
+                      style="width: 140px"
+                    >
+                      <!-- @change="handleChange" -->
+                      <a-select-option value="jack">Jack</a-select-option>
+                      <a-select-option value="lucy">Lucy</a-select-option>
+                    </a-select>
+                    <a-input
+                      v-model:value="value3"
+                      placeholder="Nhập tên sản phẩm hoặc mã ID"
+                      style="width: 149px"
+                    />
+                    <!-- @search="onSearch" -->
+                  </a-flex>
+                  <span> X</span>
+                </a-flex>
+                <span style="display: flex; gap: 10px; align-items: center">
+                  <PlusOutlined />
+                  Thêm điều kiện
+                </span>
+                <a-flex gap="16" style="flex: 1; justify-content: flex-end">
+                  <a-button @click="cancel">Hủy</a-button>
+                  <a-button
+                    style="background-color: #e57099; color: white"
+                    @click="handleOk"
+                  >
+                    Áp dụng
+                  </a-button>
+                </a-flex>
+              </a-flex>
+            </a-menu>
+          </template>
+          <a-button>
+            <FilterOutlined />
+            Thêm bộ lọc
+            <DownOutlined />
+          </a-button>
+        </a-dropdown>
+        <a-button>
+          <ReloadOutlined />
+          Đặt lại
+        </a-button>
       </a-flex>
       <a-flex style="max-height: 350px; overflow-y: scroll">
         <a-table
@@ -71,7 +137,12 @@
 
 <script setup>
 import { ref, defineEmits } from "vue";
-
+import {
+  PlusOutlined,
+  DownOutlined,
+  FilterOutlined,
+  ReloadOutlined,
+} from "@ant-design/icons-vue";
 const emit = defineEmits(["cancel"]);
 
 const columns = ref([
@@ -131,6 +202,9 @@ const data = ref([
   },
 ]);
 
+const handleMenuClick = () => {
+  console.log("a");
+};
 const numberProductSelected = ref(0);
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
