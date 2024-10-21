@@ -145,7 +145,10 @@
                   </a-input>
                 </a-flex>
               </a-flex>
-              <a-flex v-if="showData" style="flex: 1">
+              <a-flex v-if="showData" style="flex: 1" vertical gap="16">
+                <span style="font-size: 14px; font-weight: 500">
+                  Danh sách quà tặng ({{ dataSource.length }})
+                </span>
                 <a-table
                   :columns="columns"
                   :data-source="dataSource"
@@ -377,7 +380,9 @@ const checkNum = () => {
     concessionaryData.value.push([]);
   }
 };
-onMounted(() => checkNum());
+onMounted(() => {
+  checkNum();
+});
 
 const columns = [
   {

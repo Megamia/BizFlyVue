@@ -4,10 +4,13 @@ import AddNewProgram from "./pages/AddNewProgram.vue";
 import PageTest1 from "./pages/page1/PageTest1.vue";
 import PageTest2 from "./pages/page2/PageTest2.vue";
 import PageTest3 from "./pages/PageTest3.vue";
+import ModalAddGroupProduct from "./pages/page2/modal/ModalAddGroupProduct.vue";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
+        { path: "/ModalAddGroupProduct", component: ModalAddGroupProduct },
+
         { path: "/HomePage", component: HomePage },
         { path: "/AddNewProgram", component: AddNewProgram },
         { path: "/PageTest1", component: PageTest1 },
