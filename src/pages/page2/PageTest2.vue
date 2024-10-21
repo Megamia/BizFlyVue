@@ -245,7 +245,17 @@
       </a-button>
       <ModalBizshop v-if="value3 === '1' && isShowModal" @cancel="Cancel" />
       <ModalSystem v-if="value3 === '2' && isShowModal" @cancel="Cancel" />
-      <ModalExcel v-if="value3 === '3' && isShowModal" @cancel="Cancel" />
+      <ModalExcelWithoutData
+        v-if="value3 === '3' && isShowModal && !haveData "
+        @cancel="Cancel"
+        @getdata="getdata"
+      />
+
+      <ModalExcelWithData
+        v-if="value3 === '3' && isShowModal && haveData == true"
+        @cancel="Cancel"
+        @otherExcel="otherExcel"
+      />
     </a-flex>
   </a-flex>
 </template>
@@ -260,8 +270,17 @@ import {
 import { ref, onMounted } from "vue";
 import ModalBizshop from "./modal/ModalBizshop.vue";
 import ModalSystem from "./modal/ModalSystem.vue";
-import ModalExcel from "./modal/ModalExcel.vue";
+import ModalExcelWithData from "./modal/ModalExcelWithData.vue";
+import ModalExcelWithoutData from "./modal/ModalExcelWithoutData.vue";
 
+const haveData = ref(false);
+const getdata = () => {
+  haveData.value = !haveData.value;
+};
+const otherExcel=()=>{
+  haveData.value = !haveData.value;
+  console.log(haveData.value)
+}
 const money = ref("100.000đ");
 const percent = ref("");
 const isShowModal = ref(false);
