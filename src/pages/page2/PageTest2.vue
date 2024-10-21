@@ -125,7 +125,7 @@
                   </a-select>
                 </a-flex>
               </a-flex>
-              <a-flex vertical style="gap: 8px">
+              <a-flex vertical style="gap: 8px" v-if="value1 === 'order'">
                 <span> Mức giảm tối đa </span>
                 <a-flex style="align-items: center; flex: 1; height: 100%">
                   <a-radio-group v-model:value="sale" style="display: flex">
@@ -144,6 +144,53 @@
                     </template>
                   </a-input>
                 </a-flex>
+              </a-flex>
+              <a-flex v-if="showData" style="flex: 1">
+                <a-table
+                  :columns="columns"
+                  :data-source="dataSource"
+                  bordered
+                  style="flex: 1"
+                >
+                  <template #bodyCell="{ column, text, record }">
+                    <template
+                      v-if="
+                        ['name', 'age', 'address'].includes(column.dataIndex)
+                      "
+                    >
+                      <div>
+                        <a-input
+                          v-if="editableData[record.key]"
+                          v-model:value="
+                            editableData[record.key][column.dataIndex]
+                          "
+                          style="margin: -5px 0"
+                        />
+                        <template v-else>
+                          {{ text }}
+                        </template>
+                      </div>
+                    </template>
+                    <template v-else-if="column.dataIndex === 'operation'">
+                      <div class="editable-row-operations">
+                        <span v-if="editableData[record.key]">
+                          <a-typography-link @click="save(record.key)"
+                            >Save</a-typography-link
+                          >
+                          <a-popconfirm
+                            title="Sure to cancel?"
+                            @confirm="cancel(record.key)"
+                          >
+                            <a>Cancel</a>
+                          </a-popconfirm>
+                        </span>
+                        <span v-else>
+                          <a @click="edit(record.key)">Edit</a>
+                        </span>
+                      </div>
+                    </template>
+                  </template>
+                </a-table>
               </a-flex>
             </a-flex>
           </a-flex>
@@ -246,7 +293,7 @@
       <ModalBizshop v-if="value3 === '1' && isShowModal" @cancel="Cancel" />
       <ModalSystem v-if="value3 === '2' && isShowModal" @cancel="Cancel" />
       <ModalExcelWithoutData
-        v-if="value3 === '3' && isShowModal && !haveData "
+        v-if="value3 === '3' && isShowModal && !haveData && !showData"
         @cancel="Cancel"
         @getdata="getdata"
       />
@@ -255,6 +302,7 @@
         v-if="value3 === '3' && isShowModal && haveData == true"
         @cancel="Cancel"
         @otherExcel="otherExcel"
+        @havedata="ishavedata"
       />
     </a-flex>
   </a-flex>
@@ -267,20 +315,25 @@ import {
   PlusOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons-vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import ModalBizshop from "./modal/ModalBizshop.vue";
 import ModalSystem from "./modal/ModalSystem.vue";
 import ModalExcelWithData from "./modal/ModalExcelWithData.vue";
 import ModalExcelWithoutData from "./modal/ModalExcelWithoutData.vue";
 
 const haveData = ref(false);
+const showData = ref(false);
+const ishavedata = () => {
+  haveData.value = !haveData.value;
+  showData.value = !showData.value;
+};
 const getdata = () => {
   haveData.value = !haveData.value;
 };
-const otherExcel=()=>{
+const otherExcel = () => {
   haveData.value = !haveData.value;
-  console.log(haveData.value)
-}
+  console.log(haveData.value);
+};
 const money = ref("100.000đ");
 const percent = ref("");
 const isShowModal = ref(false);
@@ -325,6 +378,52 @@ const checkNum = () => {
   }
 };
 onMounted(() => checkNum());
+
+const columns = [
+  {
+    title: "name",
+    dataIndex: "name",
+    width: "25%",
+  },
+  {
+    title: "age",
+    dataIndex: "age",
+    width: "15%",
+  },
+  {
+    title: "address",
+    dataIndex: "address",
+    width: "40%",
+  },
+  {
+    title: "operation",
+    dataIndex: "operation",
+  },
+];
+const data = [];
+for (let i = 0; i < 100; i++) {
+  data.push({
+    key: i.toString(),
+    name: `Edrward ${i}`,
+    age: 32,
+    address: `London Park no. ${i}`,
+  });
+}
+const dataSource = ref(data);
+const editableData = reactive({});
+const edit = (key) => {
+  editableData[key] = dataSource.value.filter((item) => key === item.key)[0];
+};
+const save = (key) => {
+  Object.assign(
+    dataSource.value.filter((item) => key === item.key)[0],
+    editableData[key]
+  );
+  delete editableData[key];
+};
+const cancel = (key) => {
+  delete editableData[key];
+};
 </script>
 
 <style lang="scss" scoped></style>

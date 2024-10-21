@@ -87,7 +87,10 @@
         </span>
         <a-flex>
           <a-button @click="otherExcel"> Chọn file excel khác</a-button>
-          <a-button style="background-color: #e57099; color: white">
+          <a-button
+            style="background-color: #e57099; color: white"
+            @click="havedata"
+          >
             Áp dụng</a-button
           >
         </a-flex>
@@ -99,7 +102,7 @@
 <script setup>
 import { onMounted, ref, defineEmits } from "vue";
 
-const emit = defineEmits(["otherExcel"]);
+const emit = defineEmits(["otherExcel", "havedata"]);
 const open = ref(true);
 const otherExcel = () => {
   emit("otherExcel");
@@ -111,6 +114,10 @@ onMounted(() => {
   };
   getData();
 });
+
+const havedata = () => {
+  emit("havedata");
+};
 const columns = [
   {
     title: "STT",
