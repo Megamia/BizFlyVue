@@ -97,7 +97,7 @@ import { LeftOutlined } from "@ant-design/icons-vue";
 import { ref } from "vue";
 import { message } from "ant-design-vue";
 import PageTest1 from "./page1/PageTest1.vue";
-import PageTest3 from "./PageTest3.vue";
+import PageTest3 from "./page3/PageTest3.vue";
 import PageTest2 from "./page2/PageTest2.vue";
 
 const current = ref(0);

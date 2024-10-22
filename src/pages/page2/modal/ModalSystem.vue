@@ -47,13 +47,30 @@
             <a-menu @click="handleMenuClick">
               <a-flex vertical gap="12" style="padding: 20px; border-radius: 0">
                 <span style="font-size: 16px; font-weight: bold">Bộ lọc</span>
-                <a-flex gap="16" style="align-items: center">
-                  <span style="font-size: 14px"> Điều kiện </span>
+                <a-flex
+                  gap="16"
+                  style="align-items: center"
+                  v-for="(item, index) in loop"
+                  :key="index"
+                >
+                  <span style="font-size: 14px; flex: 1" v-if="index === 0"
+                    >Điều kiện
+                  </span>
+                  <a-select
+                    ref="select"
+                    v-model:value="value6"
+                    style="flex: 1"
+                    v-if="index > 0"
+                  >
+                    <a-select-option value="jack">Jack</a-select-option>
+                    <a-select-option value="lucy">Lucy</a-select-option>
+                  </a-select>
                   <a-flex gap="16">
                     <a-select
                       ref="select"
-                      v-model:value="value1"
+                      v-model:value="value4"
                       style="width: 180px"
+                      placeholder="Chọn trường"
                     >
                       <!-- @change="handleChange" -->
                       <a-select-option value="jack">Jack</a-select-option>
@@ -61,8 +78,9 @@
                     </a-select>
                     <a-select
                       ref="select"
-                      v-model:value="value2"
+                      v-model:value="value5"
                       style="width: 140px"
+                      placeholder="Chọn giá trị"
                     >
                       <!-- @change="handleChange" -->
                       <a-select-option value="jack">Jack</a-select-option>
@@ -70,21 +88,43 @@
                     </a-select>
                     <a-input
                       v-model:value="value3"
-                      placeholder="Nhập tên sản phẩm hoặc mã ID"
+                      placeholder="Nhập dữ liệu"
                       style="width: 149px"
                     />
                     <!-- @search="onSearch" -->
                   </a-flex>
-                  <span> X</span>
+                  <span
+                    @click="del(index)"
+                    :style="{ cursor: index > 0 ? 'pointer' : '' }"
+                  >
+                    X</span
+                  >
                 </a-flex>
-                <span style="display: flex; gap: 10px; align-items: center">
-                  <PlusOutlined />
-                  Thêm điều kiện
-                </span>
+                <a-flex>
+                  <span
+                    style="
+                      display: flex;
+                      gap: 10px;
+                      align-items: center;
+                      color: #e57099;
+                      cursor: pointer;
+                    "
+                    @click="addnew"
+                  >
+                    <PlusOutlined />
+                    Thêm điều kiện
+                  </span>
+                </a-flex>
                 <a-flex gap="16" style="flex: 1; justify-content: flex-end">
-                  <a-button @click="cancel">Hủy</a-button>
+                  <a-button @click="cancel" style="border-radius: 0"
+                    >Hủy</a-button
+                  >
                   <a-button
-                    style="background-color: #e57099; color: white"
+                    style="
+                      background-color: #e57099;
+                      color: white;
+                      border-radius: 0;
+                    "
                     @click="handleOk"
                   >
                     Áp dụng
@@ -150,6 +190,7 @@ const columns = ref([
   { title: "Giá", dataIndex: "price" },
 ]);
 
+const loop = ref([[]]);
 const data = ref([
   {
     key: "1",
@@ -224,7 +265,20 @@ const open = ref(true);
 const value1 = ref("Tất cả danh mục");
 const value2 = ref("Tất cả thương hiệu");
 const value3 = ref("");
+const value4 = ref(null);
+const value5 = ref(null);
+const value6 = ref("Và");
 
+const addnew = () => {
+  loop.value.push([]);
+};
+const del = (index) => {
+  if (index > 0) {
+    loop.value.splice(index, 1);
+  } else {
+    return;
+  }
+};
 const handleOk = (e) => {
   console.log(e);
 };
