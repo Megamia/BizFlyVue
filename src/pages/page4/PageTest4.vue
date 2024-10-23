@@ -21,14 +21,15 @@
         <span>Zalo OA đã đăng ký ZNS</span>
         <a-switch v-model:checked="checked" />
       </a-flex>
-      <a-flex vertical gap="8" style="padding: 24px">
+
+      <a-flex vertical gap="8" style="padding: 24px" v-if="checked">
         <a-flex style="flex: 1; justify-content: space-between">
           <span> Mẫu ZNS </span>
           <span>
             <a-typography-link>Cách tạo mẫu ZNS</a-typography-link>
           </span>
         </a-flex>
-        <a-flex>
+        <a-flex style="padding-bottom: 10px">
           <a-select
             ref="select"
             v-model:value="value1"
@@ -39,6 +40,12 @@
             <a-select-option value="lucy">abc</a-select-option>
           </a-select>
         </a-flex>
+        <a-flex v-if="value1 === 'a'">
+          Đồng bộ các tùy biến trong tin nhắn mẫu ZNS trên với Loyalty Bizfly:
+          <a-flex>
+          <a-flex></a-flex>
+          </a-flex>
+        </a-flex>
       </a-flex>
     </a-flex>
     <a-flex style="flex: 1; justify-content: flex-end">
@@ -46,7 +53,6 @@
         style="border-radius: 0; background-color: #e57099; color: white"
         >Lưu</a-button
       >
-      <a-button>asd</a-button>
     </a-flex>
   </a-flex>
 </template>
