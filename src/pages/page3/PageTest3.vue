@@ -40,7 +40,7 @@
                 value: (i + 10).toString(36) + (i + 1),
               }))
             "
-          ></a-select>
+          />
         </a-flex>
       </a-form-item>
       <a-form-item
@@ -71,16 +71,17 @@
             label="Phân hạng áp dụng"
             :rules="[{ required: true }]"
           >
-            <a-select
-              ref="select"
-              v-model:value="value4"
-              style="flex: 1"
-              @focus="focus"
-              placeholder="Chọn phân hạng"
-            >
-              <a-select-option value="jack">Jack</a-select-option>
-              <a-select-option value="lucy">Lucy</a-select-option>
-            </a-select>
+          <a-select
+            v-model:value="value4"
+            mode="multiple"
+            style="width: 100%"
+            placeholder="Please select"
+            :options="
+              [...Array(25)].map((_, i) => ({
+                value: (i + 10).toString(36) + (i + 1),
+              }))
+            "
+          />
           </a-form-item>
           <a-form-item
             v-if="value2 === '3'"
@@ -90,16 +91,17 @@
             label="Danh sách thành viên Loyalty áp dụng "
             :rules="[{ required: true }]"
           >
-            <a-select
-              ref="select"
-              v-model:value="value5"
-              style="flex: 1"
-              @focus="focus"
-              placeholder="Chọn danh sách"
-            >
-              <a-select-option value="jack">Jack</a-select-option>
-              <a-select-option value="lucy">Lucy</a-select-option>
-            </a-select>
+          <a-select
+            v-model:value="value5"
+            mode="multiple"
+            style="width: 100%"
+            placeholder="Please select"
+            :options="
+              [...Array(25)].map((_, i) => ({
+                value: (i + 10).toString(36) + (i + 1),
+              }))
+            "
+          />
           </a-form-item>
           <a-form-item
             v-if="value2 === '4'"
@@ -137,8 +139,8 @@ import { ref } from "vue";
 const value1 = ref("1");
 const value2 = ref("1");
 const value3 = ref(["a1", "b1"]);
-const value4 = ref(null);
-const value5 = ref(null);
+const value4 = ref(["a1", "b1"]);
+const value5 = ref(["a1", "b1"]);
 const value6 = ref("");
 
 const test = () => {

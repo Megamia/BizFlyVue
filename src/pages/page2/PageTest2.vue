@@ -287,11 +287,12 @@
           color: #e57099;
           border-radius: 0;
           border: 1px solid #e57099;
+          background-color: white;
         "
         @click="test"
       >
         <PlusCircleOutlined />
-        thêm mới
+        Thêm ưu đãi
       </a-button>
       <ModalBizshop v-if="value3 === '1' && isShowModal" @cancel="Cancel" />
       <ModalSystem v-if="value3 === '2' && isShowModal" @cancel="Cancel" />
@@ -307,6 +308,9 @@
         @otherExcel="otherExcel"
         @havedata="ishavedata"
       />
+    </a-flex>
+    <a-flex style="flex: 1; justify-content: flex-end">
+      <a-button>Lưu</a-button>
     </a-flex>
   </a-flex>
 </template>

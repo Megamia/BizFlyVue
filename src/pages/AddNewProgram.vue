@@ -58,6 +58,14 @@
               <div v-else class="unActive">Khu vực và đối tượng</div>
             </template>
           </a-step>
+          <a-step>
+            <template #description>
+              <div style="display: flex; flex: 1" v-if="current === 3">
+                <component :is="PageTest4" />
+              </div>
+              <div v-else class="unActive">Cấu hình gửi tin</div>
+            </template>
+          </a-step>
         </a-steps>
 
         <!-- <div style="flex: 1; display: flex">
@@ -99,6 +107,7 @@ import { message } from "ant-design-vue";
 import PageTest1 from "./page1/PageTest1.vue";
 import PageTest3 from "./page3/PageTest3.vue";
 import PageTest2 from "./page2/PageTest2.vue";
+import PageTest4 from "./page4/PageTest4.vue";
 
 const current = ref(0);
 const next = () => {

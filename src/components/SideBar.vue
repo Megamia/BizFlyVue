@@ -14,7 +14,7 @@
       @click="handleClick"
     >
     </a-menu>
-    <a-button @click="toggleMenu">{{ isMenuOpen ? "Open" : "Close" }}</a-button>
+    <a-button @click="toggleMenu" style="background-color: #f5f5f5;color:black">{{ isMenuOpen ? "Open" : "Close" }} </a-button>
   </a-flex>
 </template>
 <script setup>

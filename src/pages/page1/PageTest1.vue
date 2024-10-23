@@ -64,6 +64,7 @@
               height: 32px;
               border-radius: 2px;
               border-color: #e57099;
+              background-color: white;
             "
             type="dashed"
             block
@@ -383,6 +384,9 @@
                     border-radius: 2px 0 0 2px;
                     justify-content: center;
                     align-items: center;
+                    background-color: white;
+                    color: black;
+                    
                   "
                 >
                   -
@@ -397,6 +401,7 @@
                     padding-block: 4px;
                     padding-inline: 12px;
                     text-align: center;
+                    
                   "
                 />
                 <a-button
@@ -408,6 +413,8 @@
                     border-radius: 0 2px 2px 0;
                     justify-content: center;
                     align-items: center;
+                    background-color: white;
+                    color: black;
                   "
                 >
                   +
