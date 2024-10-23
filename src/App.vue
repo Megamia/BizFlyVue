@@ -30,16 +30,22 @@ import SideBar from "./components/SideBar.vue";
   > .ant-steps-item-tail::after {
   background-color: var(--ant-primary-color);
 }
-
 .ant-btn {
   background-color: var(--ant-primary-color);
   color: white;
   border-radius: 0;
 }
-.ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled) {
+.ant-switch.ant-switch-checked .ant-switch-inner {
   background-color: var(--ant-primary-color);
 }
 
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  background-color: var(--ant-primary-color);
+  border-color: var(--ant-primary-color);
+}
+.ant-steps-item-container[role='button']:hover .ant-steps-item-icon{
+  border-color: var(--ant-primary-color)
+}
 .layout {
   display: flex;
   flex-direction: row;
