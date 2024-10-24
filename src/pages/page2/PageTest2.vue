@@ -344,7 +344,6 @@ const otherExcel = () => {
 const money = ref("100.000đ");
 const percent = ref("");
 const isShowModal = ref(false);
-// const editableStr = ref("abc");
 const limited = ref("");
 const sale = ref(1);
 const value1 = ref("order");
@@ -352,8 +351,6 @@ const value2 = ref("money");
 const value3 = ref("Thêm quà tặng");
 
 const concessionaryData = ref([]);
-// const condition1 = ref("valueOrder");
-// const condition2 = ref("time");
 const copy = () => {
   console.log("Copy");
 };
@@ -361,11 +358,6 @@ const del = (index) => {
   console.log("Delete");
   concessionaryData.value.splice(index, 1);
 };
-
-// const changevalue = (values) => {
-//   value1.value = values;
-//   console.log(values);
-// };
 
 const showmodal = () => {
   isShowModal.value = true;

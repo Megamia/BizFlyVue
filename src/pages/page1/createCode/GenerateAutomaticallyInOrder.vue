@@ -1,6 +1,4 @@
 <template>
-  <!-- @finish="onFinish"
-      @finishFailed="onFinishFailed" -->
   <a-form
     :model="formState"
     name="basic"
@@ -12,15 +10,6 @@
       flex-direction: column;
     "
   >
-    <!-- <div
-        style="
-          display: flex;
-          padding: 24px 24px 0 24px;
-          background-color: #f5f5f5;
-          flex-direction: column;
-          gap: 20px;
-        "
-      > -->
     <a-form-item
       style="display: flex; flex-direction: column"
       :colon="false"
@@ -136,16 +125,6 @@
         </a-form-item>
       </div>
     </div>
-    <!-- <a-form-item>
-        <a-button
-          type="primary"
-          html-type="submit"
-          style="background-color: #e57099"
-        >
-          Lưu
-        </a-button>
-      </a-form-item> -->
-    <!-- </div> -->
   </a-form>
 </template>
 
@@ -153,12 +132,6 @@
 import { InfoCircleOutlined } from "@ant-design/icons-vue";
 import { reactive } from "vue";
 
-// const valueData = ref(null);
-// const options = ref([
-//   { value: "jack", label: "Jack" },
-//   { value: "lucy", label: "Lucy" },
-//   { value: "tom", label: "Tom" },
-// ]);
 const formState = reactive({
   nameProgram: "",
   code: "",
@@ -170,16 +143,6 @@ const formState = reactive({
   maxUsePerCode: "",
   maxUsePerDay: "",
 });
-// const onFinish = (values) => {
-//   console.log("Success:", values);
-// };
-
-// const onFinishFailed = (errorInfo) => {
-//   console.log("Failed:", errorInfo);
-// };
-// const filterOption = (input, option) => {
-//   return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-// };
 </script>
 
 <style scoped></style>

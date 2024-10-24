@@ -25,12 +25,10 @@
     >
       <a-flex gap="16">
         <a-select ref="select" v-model:value="value1" style="width: 180px">
-          <!-- @change="handleChange" -->
           <a-select-option value="jack">Jack</a-select-option>
           <a-select-option value="lucy">Lucy</a-select-option>
         </a-select>
         <a-select ref="select" v-model:value="value2" style="width: 180px">
-          <!-- @change="handleChange" -->
           <a-select-option value="jack">Jack</a-select-option>
           <a-select-option value="lucy">Lucy</a-select-option>
         </a-select>
@@ -39,7 +37,6 @@
           placeholder="Nhập tên sản phẩm hoặc mã ID"
           style="width: 280px"
         />
-        <!-- @search="onSearch" -->
       </a-flex>
       <a-flex style="justify-content: space-between; flex: 1">
         <a-dropdown>
@@ -72,7 +69,6 @@
                       style="width: 180px"
                       placeholder="Chọn trường"
                     >
-                      <!-- @change="handleChange" -->
                       <a-select-option value="jack">Jack</a-select-option>
                       <a-select-option value="lucy">Lucy</a-select-option>
                     </a-select>
@@ -82,7 +78,6 @@
                       style="width: 140px"
                       placeholder="Chọn giá trị"
                     >
-                      <!-- @change="handleChange" -->
                       <a-select-option value="jack">Jack</a-select-option>
                       <a-select-option value="lucy">Lucy</a-select-option>
                     </a-select>
@@ -91,7 +86,6 @@
                       placeholder="Nhập dữ liệu"
                       style="width: 149px"
                     />
-                    <!-- @search="onSearch" -->
                   </a-flex>
                   <span
                     @click="del(index)"
@@ -152,7 +146,6 @@
           style="flex: 1"
           :bordered="true"
         >
-          <!-- :pagination="{ pageSize: 2 }" -->
           <template #bodyCell="{ column, record }">
             <template v-if="column.dataIndex === 'name'">
               <a-flex gap="8" style="padding: 16px 16px 16px 0">
@@ -287,11 +280,6 @@ const cancel = (e) => {
   console.log(e);
   emit("cancel");
 };
-
-// const renderFooter = () => {
-//   return `${ numberProductSelected.value } số sản phẩm đã chọn`;
-// };
-// :footer="renderFooter"
 </script>
 
 <style scoped></style>

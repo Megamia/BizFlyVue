@@ -125,6 +125,7 @@
                         gap: 12px;
                         position: relative;
                         border-radius: 4px;
+                        cursor: pointer;
                       "
                       @click="active(1)"
                       :class="isActive === 1 ? 'active' : 'unActive'"
@@ -201,6 +202,7 @@
                         gap: 12px;
                         position: relative;
                         border-radius: 4px;
+                        cursor: pointer;
                       "
                       @click="active(2)"
                       :class="isActive === 2 ? 'active' : 'unActive'"
@@ -386,7 +388,6 @@
                     align-items: center;
                     background-color: white;
                     color: black;
-                    
                   "
                 >
                   -
@@ -401,7 +402,6 @@
                     padding-block: 4px;
                     padding-inline: 12px;
                     text-align: center;
-                    
                   "
                 />
                 <a-button

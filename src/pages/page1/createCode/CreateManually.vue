@@ -9,18 +9,6 @@
       background-color: #f5f5f5;
     "
   >
-    <!-- <a-form
-      :model="formState"
-      name="basic"
-      autocomplete="off"
-      style="
-        display: flex;
-        flex: 1;
-        padding: 24px;
-        background-color: #f5f5f5;
-        flex-direction: column;
-      "
-    > -->
     <div>
       <a-form-item
         style="display: flex; flex-direction: column"
@@ -82,7 +70,6 @@
         </a-form-item>
       </div>
     </div>
-    <!-- </a-form> -->
   </div>
 </template>
 

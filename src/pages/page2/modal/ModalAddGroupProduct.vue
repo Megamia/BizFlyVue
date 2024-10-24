@@ -1,6 +1,5 @@
 <template>
   <a-modal v-model:open="open" width="720px">
-    <!-- @cancel="cancel" -->
     <template #title>
       <span> Thêm nhóm sản phẩm </span>
     </template>
@@ -24,8 +23,6 @@
         label="Sản phẩm được áp dụng"
         :rules="[{ required: true }]"
       >
-        <!-- name="value" -->
-        <!-- , message: 'Please select product!'  -->
         <a-radio-group v-model:value="value" name="radioGroup">
           <a-radio value="1">Tất cả sản phẩm</a-radio>
           <a-radio value="2">Một số sản phẩm nhất định</a-radio>

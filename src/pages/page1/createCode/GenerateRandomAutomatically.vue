@@ -1,6 +1,4 @@
 <template>
-  <!-- @finish="onFinish"
-    @finishFailed="onFinishFailed" -->
   <a-form
     :model="formState"
     name="basic"
@@ -13,15 +11,6 @@
       gap: 20px;
     "
   >
-    <!-- <div
-      style="
-        display: flex;
-        padding: 24px 24px 0 24px;
-        background-color: #f5f5f5;
-        flex-direction: column;
-        gap: 20px;
-      "
-    > -->
     <a-form-item
       style="display: flex; flex-direction: column"
       :colon="false"
@@ -175,16 +164,6 @@
         <a-input v-model:value="formState.maxUsePerDay" placeholder="Nhập số" />
       </a-form-item>
     </div>
-    <!-- <a-form-item>
-      <a-button
-        type="primary"
-        html-type="submit"
-        style="background-color: #e57099"
-      >
-        Lưu
-      </a-button>
-    </a-form-item> -->
-    <!-- </div> -->
   </a-form>
 </template>
 
@@ -209,13 +188,7 @@ const formState = reactive({
   maxUsePerCode: "",
   maxUsePerDay: "",
 });
-// const onFinish = (values) => {
-//   console.log("Success:", values);
-// };
 
-// const onFinishFailed = (errorInfo) => {
-//   console.log("Failed:", errorInfo);
-// };
 const filterOption = (input, option) => {
   return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0;
 };
