@@ -136,16 +136,22 @@ const steps = [
     component: PageTest1,
   },
   {
-    title: "Second",
-    content: "Second-content",
+    title: "Middle",
+    content: "Middle-content",
     key: 2,
     component: PageTest2,
   },
   {
-    title: "Last",
-    content: "Last-content",
+    title: "Middle",
+    content: "Middle-content",
     key: 3,
     component: PageTest3,
+  },
+  {
+    title: "Last",
+    content: "Last-content",
+    key: 4,
+    component: PageTest4,
   },
 ];
 </script>
